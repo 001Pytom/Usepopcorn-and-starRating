@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
-// import "./index.css";
-// import App from "./App";
+import "./index.css";
+import App from "./App";
 import StarRating from "./StarRating";
 import ShowMoreCollapse from "./showmore";
 
@@ -19,8 +19,8 @@ function Test() {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    {/* <App /> */}
-    <StarRating maxRating={5} />
+    <App />
+    {/* <StarRating maxRating={5} />
     <StarRating
       maxRating={5}
       color="red"
@@ -29,7 +29,7 @@ root.render(
       defaultRating={3}
     />
     <StarRating maxRating={10} color="red" size={20} defaultRating={5} />'
-    <Test />
+    <Test /> */}
     {/* <ShowMoreCollapse
       maxLength={2}
       text={`<svg
