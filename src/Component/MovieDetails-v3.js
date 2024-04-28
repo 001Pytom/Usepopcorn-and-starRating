@@ -1,6 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import StarRating from "../StarRating";
-import Usekey from "./UseKey";
 function MovieDetails({
   selectedId,
   onCloseMovie,
@@ -13,22 +12,12 @@ function MovieDetails({
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState("");
-  const countRef = useRef(0);
-
-  // const [avrRating, setAvrRating] = useState(0);
 
   const isWatched = watched.map((movie) => movie.imdbID).includes(selectedId);
   // this isnt working that is why i cmmented it ot
   // const watchedUserrating = watched.find(
   //   movie.imdbID === selectedId
   // )?.userRating;
-
-  useEffect(
-    function () {
-      if (userRating) countRef.current++;
-    },
-    [userRating]
-  );
 
   const {
     Title: title,
@@ -52,28 +41,24 @@ function MovieDetails({
       imdbRating: Number(imdbRating),
       runtime: Number(runtime.split(" ").at(0)),
       userRating,
-      countRatingDecsioms: countRef.current,
     };
     onAddWatched(newWatchedMovie);
-    // setAvrRating((avrRating) => (avrRating + imdbRating) / 2);
     onCloseMovie();
   }
-
-  Usekey("Escape", onCloseMovie);
-  // useEffect(
-  //   function () {
-  //     function callBack(e) {
-  //       if (e.code === "Escape") {
-  //         onCloseMovie();
-  //       }
-  //     }
-  //     document.addEventListener("keydown", callBack);
-  //     return function () {
-  //       document.removeEventListener("keydown", callBack);
-  //     };
-  //   },
-  //   [onCloseMovie]
-  // );
+  useEffect(
+    function () {
+      function callBack(e) {
+        if (e.code === "Escape") {
+          onCloseMovie();
+        }
+      }
+      document.addEventListener("keydown", callBack);
+      return function () {
+        document.removeEventListener("keydown", callBack);
+      };
+    },
+    [onCloseMovie]
+  );
 
   useEffect(
     function () {
@@ -89,7 +74,7 @@ function MovieDetails({
 
       getMovieDetails();
     },
-    [selectedId, KEY]
+    [selectedId]
   );
 
   useEffect(
